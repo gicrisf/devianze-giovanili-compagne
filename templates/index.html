@@ -1,0 +1,111 @@
+{% import "macros/head.html" as head -%}
+{% import "macros/header.html" as header -%}
+{% import "macros/footer.html" as footer -%}
+
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+    <head>
+        {%- block title -%}
+            <title>{{ config.title }}</title>
+        {%- endblock title -%}
+
+        {%- block general_meta -%}
+            {{ head::general_meta() }}
+        {%- endblock general_meta -%}
+
+        {%- block fonts -%}
+            {{ head::fonts() }}
+        {%- endblock fonts -%}
+
+        {%- block css -%}
+            {{ head::styling() }}
+        {%- endblock css -%}
+
+        {%- block favicon -%}
+            {{ head::favicon() }}
+        {%- endblock favicon -%}
+
+        {%- block rss -%}
+            {{ head::rss() }}
+        {%- endblock rss -%}
+    </head>
+    <body>
+        <div id="top"></div>
+        {#
+        "container full" when width == True, regardless of center
+        "container center" when only center == True
+        "container" when both false.
+        #}
+        {%- if config.extra.full_width -%}
+            {%- set container = "container full" -%}
+        {%- elif config.extra.center -%}
+            {%- set container = "container center" -%}
+        {%- else -%}
+            {%- set container = "container" -%}
+        {%- endif -%}
+
+        <div class="{{ container }}">
+            {%- block header -%}
+                {{ header::header() }}
+            {%- endblock header -%}
+
+            <hr>
+
+            {%-  block input -%}
+
+            <div id="pre-content">
+                <!-- form input control -->
+                <div class="input" style="width: 100%">
+                    <div class="form-group">
+                        <input class="form-input" type="text" id="input-name" placeholder="Inserisci il tuo nome!">
+                    </div>
+
+                    <div>
+                        <p>Le tue devianze giovanili, edizione compagn3, sono ad un clic da te.</p>
+                        <p>~ Sarà romantico ~</p>
+
+                        <hr>
+                        <button class="btn brutal-btn input-group-btn" onclick="showContent()">Scopri le tue devianze compagne</button>
+                    </div>
+                </div>
+            </div><!-- pre-content -->
+            {%- endblock input -%}
+
+            <div class="content">
+                {%-  block output -%}
+                <div>
+                    <div id="output" class="hidden">
+                        <p id="out-name"></p>
+                        <p>Queste sono le tue devianze compagne:</p>
+                        <p>
+                            <ul id="out-list">
+                            </ul>
+                        </p>
+
+                        <div>
+                            <button class="brutal-btn" onclick="regenerate()">Rigenera le tue devianze compagne</button>
+                        </div>
+                    </div><!--out content-->
+                </div>
+                {%- endblock output -%}
+            </div>
+
+            {%- block footer -%}
+                <footer class="footer">
+                    <div class="footer__inner">
+                        <div>
+                        <p>Immaginato con amore da Cecilia, Francesca e Matito</p>
+                        <p>Frontend di <a href="https://github.com/gicrisf/">Giovanni</a></p>
+                        <p>Font designed by <a href="https://www.fontspace.com/daredemotypo">daredemotypo</a></p>
+                        </div>
+                        {%- block script -%}
+                            {{ footer::script() }}
+                        {%- endblock script -%}
+                    </div>
+                </footer>
+            {%- endblock footer -%}
+        </div>
+
+        <div id="bottom"></div>
+    </body>
+</html>
